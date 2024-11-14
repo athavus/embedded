@@ -1,0 +1,10 @@
+16:11:55 **** Incremental Build of configuration Debug for project i2c-oled-atividade ****
+make -j2 all 
+arm-none-eabi-size  i2c-oled-atividade.elf 
+   text	   data	    bss	    dec	    hex	filename
+   7640	     12	   1652	   9304	   2458	i2c-oled-atividade.elf
+Finished building: default.size.stdout
+ 
+
+16:11:58 Build Finished. 0 errors, 0 warnings. (took 3s.92ms)
+

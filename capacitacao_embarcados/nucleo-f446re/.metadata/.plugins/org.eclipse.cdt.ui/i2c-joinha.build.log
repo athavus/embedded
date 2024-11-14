@@ -1,0 +1,17 @@
+17:04:03 **** Incremental Build of configuration Debug for project i2c-joinha ****
+make -j2 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F446xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"C:/Users/tankc/Projects/embarcados/capacitacao_embarcados/nucleo-f446re/i2c-joinha/Drivers/SSD_1306_drive/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "i2c-joinha.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\tankc\Projects\embarcados\capacitacao_embarcados\nucleo-f446re\i2c-joinha\STM32F446RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="i2c-joinha.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: i2c-joinha.elf
+ 
+arm-none-eabi-size  i2c-joinha.elf 
+arm-none-eabi-objdump -h -S i2c-joinha.elf  > "i2c-joinha.list"
+   text	   data	    bss	    dec	    hex	filename
+  12388	     12	   2684	  15084	   3aec	i2c-joinha.elf
+Finished building: default.size.stdout
+ 
+Finished building: i2c-joinha.list
+ 
+
+17:04:05 Build Finished. 0 errors, 0 warnings. (took 2s.47ms)
+
