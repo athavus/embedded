@@ -9,6 +9,9 @@
 		<item key="SmartImportRootWizardPage.STORE_NESTED_PROJECTS" value="true"/>
 		<item key="SmartImportRootWizardPage.STORE_CONFIGURE_NATURES" value="true"/>
 		<list key="org.eclipse.ui.internal.wizards.datatransfer.SmartImportRootWizardPage.knownSources">
+			<item value="C:\Users\migue\Documents\GitHub\embedded\recreativo\nucleo-f446re\i2c-sharingan-animation"/>
+			<item value="C:\Users\migue\Documents\GitHub\embedded\recreativo\nucleo-f446re\i2c-relogio"/>
+			<item value="C:\Users\migue\Documents\GitHub\embedded\recreativo\nucleo-f446re\i2c-joinha"/>
 			<item value="C:\Users\tankc\Projects\embarcados\recreativo\nucleo-f446re\i2c-sharingan-animation"/>
 			<item value="C:\Users\tankc\Projects\embarcados\recreativo\nucleo-f446re\i2c-joinha"/>
 		</list>
