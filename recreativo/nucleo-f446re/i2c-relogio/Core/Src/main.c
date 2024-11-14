@@ -93,7 +93,7 @@ int main(void)
   /* USER CODE BEGIN 2 */
   SSD1306_Init ();
   /* USER CODE END 2 */
-
+  uint8_t buffer[65] = {0};
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
@@ -103,9 +103,9 @@ int main(void)
       struct tm *hora_local = localtime(&tempo_atual);
 
       SSD1306_Clear();
-      SSD1306_GotoXY(20,20);
+      SSD1306_GotoXY(0,20);
 
-      sprintf(buffer, "Hora atual: %02d:%02d:%02d\n",
+      sprintf(buffer, "Hora: %02d:%02d:%02d\n",
 		       hora_local->tm_hour,
 	               hora_local->tm_min,
 	               hora_local->tm_sec);

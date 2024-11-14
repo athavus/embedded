@@ -61,8 +61,8 @@ all: main-build
 main-build: i2c-joinha.elf secondary-outputs
 
 # Tool invocations
-i2c-joinha.elf i2c-joinha.map: $(OBJS) $(USER_OBJS) C:\Users\tankc\Projects\embarcados\capacitacao_embarcados\nucleo-f446re\i2c-joinha\STM32F446RETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "i2c-joinha.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\tankc\Projects\embarcados\capacitacao_embarcados\nucleo-f446re\i2c-joinha\STM32F446RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="i2c-joinha.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+i2c-joinha.elf i2c-joinha.map: $(OBJS) $(USER_OBJS) C:\Users\migue\Documents\GitHub\embedded\recreativo\nucleo-f446re\i2c-joinha\STM32F446RETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "i2c-joinha.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\migue\Documents\GitHub\embedded\recreativo\nucleo-f446re\i2c-joinha\STM32F446RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="i2c-joinha.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

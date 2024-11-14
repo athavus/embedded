@@ -742,9 +742,9 @@ int main(void)
   {
       SSD1306_Clear();
  8000820:	f000 fc38 	bl	8001094 <SSD1306_Clear>
-      SSD1306_GotoXY (40,20);
- 8000824:	2114      	movs	r1, #20
- 8000826:	2028      	movs	r0, #40	@ 0x28
+      SSD1306_GotoXY (0,0);
+ 8000824:	2100      	movs	r1, #0
+ 8000826:	2000      	movs	r0, #0
  8000828:	f000 fbb6 	bl	8000f98 <SSD1306_GotoXY>
       SSD1306_DrawBitmap(0, 0, epd_bitmap_allArray[cont], 128, 64, SSD1306_COLOR_WHITE);
  800082c:	f507 6389 	add.w	r3, r7, #1096	@ 0x448
