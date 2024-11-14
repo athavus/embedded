@@ -1262,7 +1262,7 @@ int main(void)
       SSD1306_GotoXY (40,20);
       SSD1306_DrawBitmap(0, 0, epd_bitmap_allArray[cont], 128, 64, SSD1306_COLOR_WHITE);
       SSD1306_UpdateScreen();
-      HAL_Delay(58);
+      HAL_Delay(59);
       cont++;
       if (cont == 17) {
 	  cont = 0;
