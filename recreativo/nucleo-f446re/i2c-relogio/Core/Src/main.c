@@ -20,6 +20,7 @@
 #include "main.h"
 #include "ssd1306.h"
 #include <time.h>
+#include <stdio.h>
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
@@ -92,27 +93,32 @@ int main(void)
   MX_I2C1_Init();
   /* USER CODE BEGIN 2 */
   SSD1306_Init ();
+  char buffer[20] = {0};
   /* USER CODE END 2 */
-  uint8_t buffer[65] = {0};
+
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-      time_t tempo_atual = time(NULL);
+	 SSD1306_Clear();
+	 SSD1306_GotoXY(0, 20);
+	 time_t s= 1;
 
-      struct tm *hora_local = localtime(&tempo_atual);
+	 struct tm* current_time;
 
-      SSD1306_Clear();
-      SSD1306_GotoXY(0,20);
+	 s = time(NULL);
 
-      sprintf(buffer, "Hora: %02d:%02d:%02d\n",
-		       hora_local->tm_hour,
-	               hora_local->tm_min,
-	               hora_local->tm_sec);
+	 current_time = localtime(&s);
 
-      SSD1306_Puts(buffer , &Font_7x10, 1);
-      SSD1306_UpdateScreen();
-      HAL_Delay(1000);
+	 sprintf(buffer, "%02d:%02d:%02d",
+				current_time->tm_hour,
+				current_time->tm_min,
+				current_time->tm_sec);
+
+	 SSD1306_Puts(buffer, &Font_7x10, 1);
+	 SSD1306_UpdateScreen();
+
+	 HAL_Delay(1000);
 
       /* USER CODE END WHILE */
 
