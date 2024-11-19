@@ -35,34 +35,34 @@ $(wildcard ../makefile.init) \
 $(wildcard ../makefile.targets) \
 
 
-BUILD_ARTIFACT_NAME := i2c-sharingan-animation
+BUILD_ARTIFACT_NAME := engine-speed-control
 BUILD_ARTIFACT_EXTENSION := elf
 BUILD_ARTIFACT_PREFIX :=
 BUILD_ARTIFACT := $(BUILD_ARTIFACT_PREFIX)$(BUILD_ARTIFACT_NAME)$(if $(BUILD_ARTIFACT_EXTENSION),.$(BUILD_ARTIFACT_EXTENSION),)
 
 # Add inputs and outputs from these tool invocations to the build variables 
 EXECUTABLES += \
-i2c-sharingan-animation.elf \
+engine-speed-control.elf \
 
 MAP_FILES += \
-i2c-sharingan-animation.map \
+engine-speed-control.map \
 
 SIZE_OUTPUT += \
 default.size.stdout \
 
 OBJDUMP_LIST += \
-i2c-sharingan-animation.list \
+engine-speed-control.list \
 
 
 # All Target
 all: main-build
 
 # Main-build Target
-main-build: i2c-sharingan-animation.elf secondary-outputs
+main-build: engine-speed-control.elf secondary-outputs
 
 # Tool invocations
-i2c-sharingan-animation.elf i2c-sharingan-animation.map: $(OBJS) $(USER_OBJS) C:\Users\tankc\Projects\embarcados\embedded\recreativo\nucleo-f446re\i2c-sharingan-animation\STM32F446RETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "i2c-sharingan-animation.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\tankc\Projects\embarcados\embedded\recreativo\nucleo-f446re\i2c-sharingan-animation\STM32F446RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="i2c-sharingan-animation.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+engine-speed-control.elf engine-speed-control.map: $(OBJS) $(USER_OBJS) C:\Users\tankc\Projects\embarcados\recreativo\nucleo-f446re\engine-speed-control\STM32F446RETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "engine-speed-control.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\tankc\Projects\embarcados\recreativo\nucleo-f446re\engine-speed-control\STM32F446RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="engine-speed-control.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
@@ -71,14 +71,14 @@ default.size.stdout: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
 	@echo 'Finished building: $@'
 	@echo ' '
 
-i2c-sharingan-animation.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-objdump -h -S $(EXECUTABLES) > "i2c-sharingan-animation.list"
+engine-speed-control.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-objdump -h -S $(EXECUTABLES) > "engine-speed-control.list"
 	@echo 'Finished building: $@'
 	@echo ' '
 
 # Other Targets
 clean:
-	-$(RM) default.size.stdout i2c-sharingan-animation.elf i2c-sharingan-animation.list i2c-sharingan-animation.map
+	-$(RM) default.size.stdout engine-speed-control.elf engine-speed-control.list engine-speed-control.map
 	-@echo ' '
 
 secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST)
