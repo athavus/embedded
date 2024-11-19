@@ -19,7 +19,6 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "ssd1306.h"
-#include <time.h>
 #include <stdio.h>
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -93,32 +92,45 @@ int main(void)
   MX_I2C1_Init();
   /* USER CODE BEGIN 2 */
   SSD1306_Init ();
-  char buffer[20] = {0};
+  char buffer[26] = {0};
+
+  int cont_seconds = 0;
+  int cont_minutes = 0;
+  int cont_hours = 0;
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	 SSD1306_Clear();
-	 SSD1306_GotoXY(0, 20);
-	 time_t s= 1;
+      SSD1306_Clear();
+      SSD1306_GotoXY(20, 23);
 
-	 struct tm* current_time;
+      cont_seconds++;
 
-	 s = time(NULL);
+      if (cont_seconds >= 60) {
+	cont_minutes++;
+	cont_seconds = 0;
+      }
 
-	 current_time = localtime(&s);
+      if (cont_minutes >= 60) {
+	cont_hours++;
+	cont_minutes = 0;
+      }
 
-	 sprintf(buffer, "%02d:%02d:%02d",
-				current_time->tm_hour,
-				current_time->tm_min,
-				current_time->tm_sec);
+      if (cont_hours >= 24)
+	cont_hours = 0;
 
-	 SSD1306_Puts(buffer, &Font_7x10, 1);
-	 SSD1306_UpdateScreen();
+      sprintf(buffer, "%02d:%02d:%02d",
+    		  cont_hours,
+    		  cont_minutes,
+    		  cont_seconds);
 
-	 HAL_Delay(1000);
+      SSD1306_Puts(buffer, &Font_11x18, 1);
+      SSD1306_UpdateScreen();
+
+
+      HAL_Delay(1000);
 
       /* USER CODE END WHILE */
 

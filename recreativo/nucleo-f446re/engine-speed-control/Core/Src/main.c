@@ -112,7 +112,19 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
+      uint16_t adc_value = HAL_ADC_GetValue(&hadc1);
+      uint16_t rpm = (adc_value * 3000) / 4095;
+      char buffer[20] = {0};
 
+      SSD1306_Clear();
+      SSD1306_GotoXY(0, 20);
+
+      sprintf(buffer, "RPM: %d", rpm);
+
+      SSD1306_Puts(buffer, &Font_7x10, 1);
+      SSD1306_UpdateScreen();
+
+      HAL_Delay(100);
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
@@ -343,26 +355,6 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
-void update_display()
-{
-	uint16_t adc_value = HAL_ADC_GetValue(&hadc1);
-	uint16_t rpm = (adc_value * 3000) / 4095;
-	char buffer[20] = {0};
-
-	SSD1306_Clear();
-	SSD1306_GotoXY(0, 20);
-
-	sprintf(buffer, "RPM: %d", rpm);
-
-	SSD1306_Puts(buffer, &Font_7x10, 1);
-	SSD1306_UpdateScreen();
-}
-
-void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
-    if (htim->Instance == TIM1) {
-        update_display();
-    }
-}
 
 /* USER CODE END 4 */
 

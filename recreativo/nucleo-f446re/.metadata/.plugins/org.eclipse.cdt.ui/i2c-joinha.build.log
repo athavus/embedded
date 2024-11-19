@@ -1,4 +1,4 @@
-18:48:10 **** Incremental Build of configuration Debug for project i2c-joinha ****
+14:17:26 **** Incremental Build of configuration Debug for project i2c-joinha ****
 make -j32 all 
 arm-none-eabi-size  i2c-joinha.elf 
    text	   data	    bss	    dec	    hex	filename
@@ -6,5 +6,5 @@ arm-none-eabi-size  i2c-joinha.elf
 Finished building: default.size.stdout
  
 
-18:48:10 Build Finished. 0 errors, 0 warnings. (took 123ms)
+14:17:26 Build Finished. 0 errors, 0 warnings. (took 137ms)
 
