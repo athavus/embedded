@@ -1,7 +1,7 @@
 color.comment=150,152,150
 color.directive=171,178,191
 color.interpolation=198,120,221
-color.oppositeRegion=75,78,85
+color.oppositeRegion=65,65,4
 color.string=152,195,121
 color.text=171,178,191
 color.xmlComment=150,152,150

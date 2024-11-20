@@ -1,8 +1,8 @@
-//editors/optionsParameters.background=40,44,53
+//editors/optionsParameters.background=25,29,31
 //editors/optionsParameters.foreground=171,178,191
-//editors/optionsProposals.background=40,44,53
+//editors/optionsProposals.background=25,29,31
 //editors/optionsProposals.foreground=171,178,191
-MatchingBrackets.color=75,78,85
+MatchingBrackets.color=65,65,4
 eclipse.preferences.version=1
 editors/options/Parameters.background=46,52,54
 editors/options/Parameters.foreground=211,215,207
