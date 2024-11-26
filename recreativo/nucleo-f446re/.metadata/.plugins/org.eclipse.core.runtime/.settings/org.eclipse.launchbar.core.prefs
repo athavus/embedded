@@ -1,8 +1,10 @@
 LaunchTargetManager/org.eclipse.launchbar.core.launchTargetType.local,Local/arch=x86_64
 LaunchTargetManager/org.eclipse.launchbar.core.launchTargetType.local,Local/name=Local
 LaunchTargetManager/org.eclipse.launchbar.core.launchTargetType.local,Local/os=win32
-configDescList=org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:i2c-sharingan-animation Debug,org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:i2c-joinha Debug,org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:hello-world Debug,org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:i2c-cronometro Debug,org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:i2c-relogio Debug,org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:engine-speed-control Debug
+configDescList=org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:i2c-cronometro Debug,org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:i2c-relogio Debug,org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:i2c-sharingan-animation Debug,org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:engine-speed-control Debug,org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:hello-world Debug,org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:i2c-joinha Debug
 eclipse.preferences.version=1
+org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:i2c-cronometro\ Debug/activeLaunchMode=run
+org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:i2c-cronometro\ Debug/activeLaunchTarget=null\:---
 org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:i2c-joinha\ Debug/activeLaunchMode=run
 org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:i2c-joinha\ Debug/activeLaunchTarget=null\:---
 org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:i2c-sharingan-animation\ Debug/activeLaunchMode=run

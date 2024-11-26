@@ -1,5 +1,6 @@
 eclipse.preferences.version=1
 forwardDeclare.enums=false
+semanticHighlighting.function.color=97,175,239
 spelling_locale_initialized=true
 useAnnotationsPrefPage=true
 useQuickDiffPrefPage=true
