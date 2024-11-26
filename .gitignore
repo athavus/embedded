@@ -52,8 +52,8 @@ Mkfile.old
 dkms.conf
 
 #metadata files
-./capacitacao_embarcados/.metadata/*
-./capacitacao_embarcados/nucleo-co31c6/.metadata/*
-./capacitacao_embarcados/nucleo-f446re/.metadata/*
-./recreativo/nucleo-co31c6/.metadata/*
-./recreativo/nucleo-f446re/.metadata/*
+capacitacao_embarcados/.metadata/*
+capacitacao_embarcados/nucleo-co31c6/.metadata/*
+capacitacao_embarcados/nucleo-f446re/.metadata/*
+recreativo/nucleo-c031c6/.metadata/*
+recreativo/nucleo-f446re/.metadata/*
