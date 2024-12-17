@@ -1,0 +1,10 @@
+14:48:14 **** Incremental Build of configuration Debug for project questao4-i2c ****
+make -j2 all 
+arm-none-eabi-size  questao4-i2c.elf 
+   text	   data	    bss	    dec	    hex	filename
+  22636	    100	   3164	  25900	   652c	questao4-i2c.elf
+Finished building: default.size.stdout
+ 
+
+14:48:15 Build Finished. 0 errors, 0 warnings. (took 701ms)
+

@@ -1,0 +1,95 @@
+#include "dht11.h"
+#include "ssd1306.h"
+
+int DHT11_init(struct DHT11_Dev* dev, GPIO_TypeDef* port, uint16_t pin) {
+	TIM_TimeBaseInitTypeDef TIM_TimBaseStructure;
+	GPIO_InitTypeDef GPIO_InitStructure;
+
+	dev->port = port;
+	dev->pin = pin;
+
+	//Initialise TIMER2
+	TIM_TimBaseStructure.TIM_Period = 84000000 - 1;
+	TIM_TimBaseStructure.TIM_Prescaler = 84;
+	TIM_TimBaseStructure.TIM_ClockDivision = 0;
+	TIM_TimBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;
+	TIM_TimeBaseInit(TIM2, &TIM_TimBaseStructure);
+	TIM_Cmd(TIM2, ENABLE);
+
+	//Initialise GPIO DHT11
+	GPIO_InitStructure.GPIO_Pin = dev->pin;
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;
+	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;
+	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
+	GPIO_Init(dev->port, &GPIO_InitStructure);
+
+	return 0;
+}
+
+uint8_t DHT11_Read(DHT11_HandleTypeDef *data) {
+    uint8_t buffer[5] = {0};
+    uint32_t timeout;
+    uint8_t i, j;
+
+    // Sequência de inicialização
+    GPIO_InitTypeDef GPIO_InitStruct = {0};
+    GPIO_InitStruct.Pin = DHT11_PIN;
+    GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    HAL_GPIO_Init(DHT11_PORT, &GPIO_InitStruct);
+
+    // Sinal de inicialização
+    HAL_GPIO_WritePin(DHT11_PORT, DHT11_PIN, GPIO_PIN_RESET);
+    HAL_Delay(18);
+    HAL_GPIO_WritePin(DHT11_PORT, DHT11_PIN, GPIO_PIN_SET);
+    HAL_Delay(20);
+
+    // Muda para entrada
+    GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+    HAL_GPIO_Init(DHT11_PORT, &GPIO_InitStruct);
+
+    // Espera resposta do sensor
+    timeout = HAL_GetTick() + 100;
+    while (HAL_GPIO_ReadPin(DHT11_PORT, DHT11_PIN) == GPIO_PIN_SET) {
+        if (HAL_GetTick() > timeout) return 0;
+    }
+
+    timeout = HAL_GetTick() + 100;
+    while (HAL_GPIO_ReadPin(DHT11_PORT, DHT11_PIN) == GPIO_PIN_RESET) {
+        if (HAL_GetTick() > timeout) return 0;
+    }
+
+    // Leitura dos dados
+    for (j = 0; j < 5; j++) {
+        for (i = 0; i < 8; i++) {
+            // Espera o bit começar
+            timeout = HAL_GetTick() + 100;
+            while (HAL_GPIO_ReadPin(DHT11_PORT, DHT11_PIN) == GPIO_PIN_RESET) {
+                if (HAL_GetTick() > timeout) return 0;
+            }
+
+            // Delay para diferenciar 0 e 1
+            HAL_Delay(40);
+
+            if (HAL_GPIO_ReadPin(DHT11_PORT, DHT11_PIN) == GPIO_PIN_SET) {
+                buffer[j] |= (1 << (7 - i));
+            }
+
+            // Espera o bit terminar
+            timeout = HAL_GetTick() + 100;
+            while (HAL_GPIO_ReadPin(DHT11_PORT, DHT11_PIN) == GPIO_PIN_SET) {
+                if (HAL_GetTick() > timeout) return 0;
+            }
+        }
+    }
+
+    // Checksum
+    if (buffer[4] == (buffer[0] + buffer[1] + buffer[2] + buffer[3])) {
+        data->humidity = buffer[0];
+        data->temperature = buffer[2];
+        return 1;
+    }
+
+    return 0;
+}

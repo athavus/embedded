@@ -1,0 +1,41 @@
+18:20:22 **** Incremental Build of configuration Debug for project irrigator ****
+make -j2 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F446xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"C:/Users/Miguel Ryan/Projects/micro/embedded/capacitacao_embarcados/nucleo-f446re/irrigator/Drivers/SSD_1306_drive/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'DHT11_Start':
+../Core/Src/main.c:71:9: warning: implicit declaration of function 'Set_Pin_Output' [-Wimplicit-function-declaration]
+   71 |         Set_Pin_Output (DHT11_PORT, DHT11_PIN);  // set the pin as output
+      |         ^~~~~~~~~~~~~~
+../Core/Src/main.c:74:9: warning: implicit declaration of function 'Set_Pin_Input' [-Wimplicit-function-declaration]
+   74 |         Set_Pin_Input(DHT11_PORT, DHT11_PIN);    // set as input
+      |         ^~~~~~~~~~~~~
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:151:17: warning: unused variable 'SUM' [-Wunused-variable]
+  151 |         uint8_t SUM = DHT11_Read();
+      |                 ^~~
+../Core/Src/main.c:150:17: warning: unused variable 'Temp_byte2' [-Wunused-variable]
+  150 |         uint8_t Temp_byte2 = DHT11_Read();
+      |                 ^~~~~~~~~~
+../Core/Src/main.c:148:17: warning: unused variable 'Rh_byte2' [-Wunused-variable]
+  148 |         uint8_t Rh_byte2 = DHT11_Read();
+      |                 ^~~~~~~~
+../Core/Src/main.c:146:17: warning: unused variable 'Presence' [-Wunused-variable]
+  146 |         uint8_t Presence = DHT11_Check_Response();
+      |                 ^~~~~~~~
+arm-none-eabi-gcc -o "irrigator.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\Miguel Ryan\Projects\micro\embedded\capacitacao_embarcados\nucleo-f446re\irrigator\STM32F446RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="irrigator.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: irrigator.elf
+ 
+arm-none-eabi-size  irrigator.elf 
+arm-none-eabi-objdump -h -S irrigator.elf  > "irrigator.list"
+   text	   data	    bss	    dec	    hex	filename
+  21664	    100	   3164	  24928	   6160	irrigator.elf
+Finished building: default.size.stdout
+ 
+Finished building: irrigator.list
+ 
+18:20:42 **** Incremental Build of configuration Debug for project irrigator ****
+make -j2 all 
+arm-none-eabi-size  irrigator.elf 
+   text	   data	    bss	    dec	    hex	filename
+  21664	    100	   3164	  24928	   6160	irrigator.elf
+Finished building: default.size.stdout
+ 

@@ -1,0 +1,80 @@
+#include "dht11.h"
+#include "ssd1306.h"
+
+void DHT11_Init(void) {
+    GPIO_InitTypeDef GPIO_InitStruct = {0};
+
+    __HAL_RCC_GPIOA_CLK_ENABLE();
+
+    GPIO_InitStruct.Pin = DHT11_PIN;
+    GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+    HAL_GPIO_Init(DHT11_PORT, &GPIO_InitStruct);
+
+
+    HAL_GPIO_WritePin(DHT11_PORT, DHT11_PIN, GPIO_PIN_SET);
+    HAL_Delay(1000);
+
+    HAL_GPIO_WritePin(DHT11_PORT, DHT11_PIN, GPIO_PIN_RESET);
+    HAL_Delay(18);
+    HAL_GPIO_WritePin(DHT11_PORT, DHT11_PIN, GPIO_PIN_SET);
+    HAL_Delay(20);
+
+    GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+    HAL_GPIO_Init(DHT11_PORT, &GPIO_InitStruct);
+}
+
+uint8_t DHT11_Read(DHT11_HandleTypeDef *data) {
+    uint8_t buffer[5] = {0};
+    uint32_t timeout;
+    uint8_t i, j;
+
+
+    timeout = HAL_GetTick() + 100;
+    while (!HAL_GPIO_ReadPin(DHT11_PORT, DHT11_PIN)) {
+        if (HAL_GetTick() > timeout) {
+            return 0;
+        }
+    }
+
+    timeout = HAL_GetTick() + 100;
+    while (HAL_GPIO_ReadPin(DHT11_PORT, DHT11_PIN)) {
+        if (HAL_GetTick() > timeout) {
+            return 0;
+        }
+    }
+
+    for (j = 0; j < 5; j++) {
+        for (i = 0; i < 8; i++) {
+
+            timeout = HAL_GetTick() + 100;
+            while (!HAL_GPIO_ReadPin(DHT11_PORT, DHT11_PIN)) {
+                if (HAL_GetTick() > timeout) {
+                    return 0; // Timeout
+                }
+            }
+
+            HAL_Delay(40);
+
+            if (HAL_GPIO_ReadPin(DHT11_PORT, DHT11_PIN)) {
+                buffer[j] |= (1 << (7 - i));
+            }
+
+            timeout = HAL_GetTick() + 100;
+            while (HAL_GPIO_ReadPin(DHT11_PORT, DHT11_PIN)) {
+                if (HAL_GetTick() > timeout) {
+                    return 0;
+                }
+            }
+        }
+    }
+
+    if (buffer[4] == (buffer[0] + buffer[1] + buffer[2] + buffer[3])) {
+        data->humidity = buffer[0];
+        data->temperature = buffer[2];
+        return 1;
+    }
+
+    return 0;
+}

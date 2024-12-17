@@ -1,0 +1,20 @@
+#ifndef DHT11_H
+#define DHT11_H
+
+#include "stm32f4xx_hal.h"
+
+// Definições
+#define DHT11_PORT GPIOA
+#define DHT11_PIN GPIO_PIN_1
+
+// Estrutura para armazenar os dados
+typedef struct {
+    uint8_t temperature;
+    uint8_t humidity;
+} DHT11_HandleTypeDef;
+
+// Prototipos das funções
+void DHT11_Init(void);
+uint8_t DHT11_Read(DHT11_Data *data);
+
+#endif // DHT11_H

@@ -1,0 +1,77 @@
+#include "dht11.h"
+#include "ssd1306.h"
+
+void DHT11_Init(void) {
+    GPIO_InitTypeDef GPIO_InitStruct = {0};
+    GPIO_InitStruct.Pin = DHT11_PIN;
+    GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+    HAL_GPIO_Init(DHT11_PORT, &GPIO_InitStruct);
+
+    // Pulso de start
+    HAL_GPIO_WritePin(DHT11_PORT, DHT11_PIN, GPIO_PIN_RESET);
+    HAL_Delay(18);
+    HAL_GPIO_WritePin(DHT11_PORT, DHT11_PIN, GPIO_PIN_SET);
+    HAL_Delay(20);
+}
+
+uint8_t DHT11_Read(DHT11_HandleTypeDef *data) {
+    uint8_t buffer[5] = {0};
+    uint8_t i, j;
+
+    // Configura pino como entrada
+    GPIO_InitTypeDef GPIO_InitStruct = {0};
+    GPIO_InitStruct.Pin = DHT11_PIN;
+    GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    HAL_GPIO_Init(DHT11_PORT, &GPIO_InitStruct);
+
+    // Aguarda resposta
+    while (!HAL_GPIO_ReadPin(DHT11_PORT, DHT11_PIN));
+    while (HAL_GPIO_ReadPin(DHT11_PORT, DHT11_PIN));
+
+    // Lê 40 bits
+    for (j = 0; j < 5; j++) {
+        for (i = 0; i < 8; i++) {
+            while (!HAL_GPIO_ReadPin(DHT11_PORT, DHT11_PIN));
+            HAL_Delay(40);
+            if (HAL_GPIO_ReadPin(DHT11_PORT, DHT11_PIN)) {
+                buffer[j] |= (1 << (7 - i));
+            }
+            while (HAL_GPIO_ReadPin(DHT11_PORT, DHT11_PIN));
+        }
+    }
+
+    // Checksum
+    if (buffer[4] == (buffer[0] + buffer[1] + buffer[2] + buffer[3])) {
+        data->humidity = buffer[0];
+        data->temperature = buffer[2];
+        return 1;
+    }
+
+    return 0;
+}
+
+void Display_TempHum(uint8_t temperature, uint8_t humidity, uint8_t error) {
+    char buffer[20];
+
+    SSD1306_Clear();
+
+    if (error) {
+			SSD1306_GotoXY(10, 20);
+			SSD1306_Puts("Erro ao ler", &Font_11x18, 1);
+			SSD1306_GotoXY(20, 40);
+			SSD1306_Puts("DHT11", &Font_11x18, 1);
+    } else {
+    	sprintf(buffer, "Temp: %d C", temperature);
+			SSD1306_GotoXY(15, 10);
+			SSD1306_Puts(buffer, &Font_11x18, 1);
+
+			sprintf(buffer, "Umid: %d%%", humidity);
+			SSD1306_GotoXY(15, 35);
+			SSD1306_Puts(buffer, &Font_11x18, 1);
+    }
+
+    SSD1306_UpdateScreen();
+}
